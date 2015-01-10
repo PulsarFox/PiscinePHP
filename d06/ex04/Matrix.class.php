@@ -21,6 +21,18 @@ Class Matrix {
 
 	private $_matrix = array(array(1, 0, 0, 0), array(0, 1, 0, 0), array(0, 0, 1, 0), array(0, 0, 0, 1) );
 
+	public function transpose() {
+		$old_verbose = Matrix::$verbose;
+		Matrix::$verbose = false;
+		$result = new Matrix( ['preset' => Matrix::IDENTITY] );
+		Matrix::$verbose = $old_verbose;
+		for ( $i = 0; $i < 4; $i++ ) {
+			for ( $j = 0; $j < 4; $j++ )
+				$result->_matrix[$i][$j] = $this->_matrix[$j][$i];
+		}
+		return ( $result );	
+	}
+
 	public function mult( $rhs ) {
 		$old_verbose = Matrix::$verbose;
 		Matrix::$verbose = false;
