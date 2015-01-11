@@ -77,21 +77,14 @@ $renderer = new Render( 640, 480, 'pic.png' );
 
 
 $origin = New Vertex( array( 'x' => 0.0, 'y' => 0.0, 'z' => 0.0 ) );
-$origin = $cam->watchVertex( $origin );
 
-//echo "ok\n";
+$origin = $cam->watchVertex( $origin );
 $repere = makeRepere();
-//echo "ok\n";
-//print_r($repere);
 $repere = $S->transformMesh( $repere );
-//echo "after transform\n";
-//print_r($repere);
 $repere = $cam->watchMesh( $repere );
-//echo "ok\n";
 $renderer->renderMesh( $repere, Render::EDGE );
 $renderer->renderVertex( $origin );
 
-//echo "ok\n";
 
 $cube = makeColoredCube( 0.0, 0.0, 0.0, 1.0 );
 $M = $T->mult( $RX )->mult( $RY )->mult( $S );

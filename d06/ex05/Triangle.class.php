@@ -12,6 +12,7 @@ Class Triangle {
 	private $_A;
 	private $_B;
 	private $_C;
+	private $_visible;
 
 	public function getA() {
 		return ( clone $this->_A );
@@ -25,6 +26,20 @@ Class Triangle {
 		return ( clone $this->_C );
 	}
 
+	public function getVisibility() {
+		return $this->_visible;
+	}
+
+	public function setVisibility( $val ) {
+		$this->_visible = $val;
+	}
+
+	public function getNormal() {
+		$vec1 = new Vector( ['dest' => $this->getB(), 'orig' => $this->getA()] ); 
+		$vec2 = new Vector( ['dest' => $this->getC(), 'orig' => $this->getA()] );
+		return ( $vec1->crossProduct( $vec2 ) );
+	}
+	
 	public function __construct( $A, $B, $C ) {
 		if ( !$A || !$C || !$B  )
 			return;

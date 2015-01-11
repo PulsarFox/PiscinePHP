@@ -19,19 +19,27 @@ Class Camera {
 		print (file_get_contents("./Camera.doc.txt"));
 		return;
 	}
+
+	public function isVisible( Triangle $tri ) {
+		$new = new Vector( ['dest' => $tri->getA(), 'origin' => ( $this->_origin ) ] );
+		$visible = $new->dotProduct( $tri->getNormal() );
+		if ( $visible >= 0 )
+			return true;
+		return true;
+	}
 	
 	public function watchVertex( Vertex $worldVertex ) {
-		$x = ($this->_width / 2 ) * $worldVertex->getX() + ( $this->_width / 2 );
-		$x = ($this->_height / 2 ) * $worldVertex->getY() + ( $this->_height / 2 );
-		$z = ( $this->_far - $this->_near ) / 2  * $worldVertex->getZ + ($this->_far + $this->_near) / 2;
-		$return = new Vertex( ['x' => $x, 'y' => $y ,'z' => z] );
-		return ( $return );
+		$cam_vertex = $this->_view_matrix->transformVertex($worldVertex);
+		$ndc_vertex = $this->_proj->transformVertex($cam_vertex);
+		return (new Vertex(['x' => (1 + $ndc_vertex->getX()) * $this->_width / 2, 'y' => (1 + $ndc_vertex->getY()) * $this->_height / 2, 'z' => $ndc_vertex->getZ(), 'color' => $ndc_vertex->getColor()]));
 	}
 	public function watchTriangle( Triangle $Triangle ) {
 		$wA = $this->watchVertex( $Triangle->getA() );
 		$wB = $this->watchVertex( $Triangle->getB() );
 		$wC = $this->watchVertex( $Triangle->getC() );	
-		return ( new Triangle( $wA, $wB, $wC ) );
+		$result = new Triangle( $wA, $wB, $wC );
+		$result->setVisibility( $this->isVisible( $Triangle ) );
+		return ( $result );
 	}
 	
 	public function watchMesh( $Mesh ) {
@@ -39,7 +47,7 @@ Class Camera {
 			$return[] = $this->watchTriangle( $Triangle );
 		return( $return );
 	}
-	
+
 	public function __construct( array $kwargs ) {
 		if ( !array_key_exists( 'origin', $kwargs) || !array_key_exists( 'orientation', $kwargs) || !array_key_exists( 'fov', $kwargs) || !array_key_exists( 'near', $kwargs) || !array_key_exists( 'far', $kwargs ) || ( ( !array_key_exists('width', $kwargs) || !array_key_exists('height', $kwargs) ) && !array_key_exists('ratio', $kwargs) ) )
 			return;

@@ -7,7 +7,7 @@ new Vector( (array( 'dest' => $Vertex, 'orig' => $Vertex) ) );
 dest is required, orig wll be set to (0;0;0;1) if not defined.
 Any other use is undefined.
 
-The class provies the following methods :
+The class provides the following methods :
 
 float magnitude() : get the magnitude of the vector.
 

@@ -24,6 +24,8 @@ Class Render {
 	}
 
 	public function renderTriangle( Triangle $triangle, $mode ) {
+		if ( $triangle->getVisibility() === false )
+			return;
 		$this->renderVertex( $triangle->getA() );	
 		$this->renderVertex( $triangle->getB() );
 		$this->renderVertex( $triangle->getC() );
