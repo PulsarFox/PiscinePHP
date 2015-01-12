@@ -45,7 +45,30 @@ Class Triangle {
 		$y = ( $this->_A->getY() + $this->_B->getY() + $this->_C->getY() ) / 3;
 	   	$z = ( $this->_A->getZ() + $this->_B->getZ() + $this->_C->getZ() ) / 3; 	
 		return( new Vertex( ['x' => round($x), 'y' => round($y), 'z' => round($z) ] ) );
-	}	
+	}
+
+	public function area() {
+		$ax = $this->_A->getX();
+		$ay = $this->_A->getY();
+		$bx = $this->_B->getX();
+		$by = $this->_B->getY();
+		$cx = $this->_C->getX();
+		$cy = $this->_C->getY();
+		$area = abs(($ax * ($by - $cy) + $bx * ($cy - $ay) + $cx * ($ay - $by)) / 2);
+		return ($area);
+	}
+
+	public function get_point_color(Vertex $p) {
+		$abp = new Triangle( $this->_A, $this->_B, $p );
+		$acp = new Triangle( $this->_A, $this->_C, $p );
+		$bcp = new Triangle( $this->_B, $this->_C, $p );
+		$t_area = $this->area();
+		$a_area = $bcp->area();
+		$b_area = $acp->area();
+		$c_area = $abp->area();
+		return ( Color::trifusion( $this->_A->getColor(), $a_area / $t_area, $this->_B->getColor(), $b_area / $t_area, $this->_C->getColor(), $c_area / $t_area ) );
+	}
+
 	public function __construct( $A, $B, $C ) {
 		if ( !$A || !$C || !$B  )
 			return;

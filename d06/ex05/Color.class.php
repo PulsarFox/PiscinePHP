@@ -64,5 +64,12 @@ Class Color {
 		$e = $destination->mult( $advancement );
 		return ( $o->add( $e ) );
 	}
+	
+	public function trifusion(Color $A, $progA, Color $B, $progB, Color $C, $progC) {
+		$a = $A->mult($progA);
+		$b = $B->mult($progB);
+		$c = $C->mult($progC);
+		return ($a->add($b)->add($c));
+	}
 }
 ?>
