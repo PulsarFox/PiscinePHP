@@ -21,10 +21,10 @@ Class Camera {
 	}
 
 	public function isVisible( Triangle $tri ) {
-		$new = new Vector( ['dest' => $tri->getA(), 'origin' => ( $this->_origin ) ] );
-		$visible = $new->dotProduct( $tri->getNormal() );
+		$view_vector = new Vector( ['dest' => $tri->getCentroid(), 'origin' => ( $this->_origin ) ] );
+		$visible = -$view_vector->dotProduct( $tri->getNormal() );
 		if ( $visible >= 0 )
-			return true;
+			return false;
 		return true;
 	}
 	
@@ -38,7 +38,7 @@ Class Camera {
 		$wB = $this->watchVertex( $Triangle->getB() );
 		$wC = $this->watchVertex( $Triangle->getC() );	
 		$result = new Triangle( $wA, $wB, $wC );
-		$result->setVisibility( $this->isVisible( $Triangle ) );
+		$result->setVisibility( $this->isVisible( $result) );
 		return ( $result );
 	}
 	

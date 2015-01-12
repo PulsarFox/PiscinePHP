@@ -53,7 +53,16 @@ Class Color {
 	}
 
 	public function toPngColor( $image ) {
-	return ( imagecolorallocate( $image, $this->red, $this->green, $this->blue ) ); 
+		$color = imagecolorallocate( $image, $this->red, $this->green, $this->blue );
+		if ( $color === false )
+			$color = imagecolorresolve( $image, $this->red, $this->green, $this->blue );
+	return ( $color ); 
+	}
+	
+	public function bifusion( Color $destination, $advancement ) {
+		$o = $this->mult( 1 - $advancement );
+		$e = $destination->mult( $advancement );
+		return ( $o->add( $e ) );
 	}
 }
 ?>

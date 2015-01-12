@@ -39,7 +39,13 @@ Class Triangle {
 		$vec2 = new Vector( ['dest' => $this->getC(), 'orig' => $this->getA()] );
 		return ( $vec1->crossProduct( $vec2 ) );
 	}
-	
+
+	public function getCentroid() {
+		$x = ( $this->_A->getX() + $this->_B->getX() + $this->_C->getX() ) / 3;
+		$y = ( $this->_A->getY() + $this->_B->getY() + $this->_C->getY() ) / 3;
+	   	$z = ( $this->_A->getZ() + $this->_B->getZ() + $this->_C->getZ() ) / 3; 	
+		return( new Vertex( ['x' => round($x), 'y' => round($y), 'z' => round($z) ] ) );
+	}	
 	public function __construct( $A, $B, $C ) {
 		if ( !$A || !$C || !$B  )
 			return;

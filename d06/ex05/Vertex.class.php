@@ -85,6 +85,12 @@ Class Vertex {
 	public function mult( $nb ) {
 		return (new Color( array( 'x' => $this->getX() * $nb, 'y' => $this->getY() * $nb, 'z' => $this->getZ() * $nb, 'w' => $this->getW() * $nb, 'Color' => $this->getColor()->mult( $nb ))));
 	}
+
+	public function equal( Vertex $vth ) {
+		if ( $this->getX() === $vth->getX() &&  $this->getY() === $vth->getY() && $this->getZ() === $vth->getZ() )
+			return true;
+		return false;
+	}
 }
 
 ?>
