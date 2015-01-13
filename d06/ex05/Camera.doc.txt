@@ -8,6 +8,12 @@ Any other use is undefined
 
 The class provies the following methods :
 
-Vertex watchVertex( Vertex $worldVertex ) : Transform a NDC vertex into one with screen coordinates.
+Vertex watchVertex( Vertex $worldVertex ) : return the result of the transformation a NDC vertex into one with screen coordinates.
+
+Triangle watchTriangle( Triangle $worldTriangle ) : return the result of the transformation of a NDC triangle into one with screen coordinates, also set his visibility.
+
+wMesh watchMesh( $mesh ) : return the result of the transformation of a NDC mesh into one with screen coordinates.
+
+Bool isVisible( Triangle $tri ) : return true if the triangle is visible from $this.
 
 ---------------------------------------------------------------------- Camera ->

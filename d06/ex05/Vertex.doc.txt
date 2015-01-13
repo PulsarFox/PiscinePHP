@@ -19,4 +19,7 @@ Substracts each vortex constitutive and returns a new vortex instance.
 
 Vortex   mult( Vortex $nb )
 Multiplies each vortex constitutive by factor $nb and returns a new vortex instance.
+
+Bool	equal( Vertex $vth )
+Return true if both vertex have the same x,y,z coordinates.
 ------------------------------------------------------------------------------------- Vertex ->

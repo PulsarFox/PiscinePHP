@@ -12,7 +12,7 @@ Class Triangle {
 	private $_A;
 	private $_B;
 	private $_C;
-	private $_visible;
+	private $_visiblei = false;
 
 	public function getA() {
 		return ( clone $this->_A );
@@ -54,11 +54,11 @@ Class Triangle {
 		$by = $this->_B->getY();
 		$cx = $this->_C->getX();
 		$cy = $this->_C->getY();
-		$area = abs(($ax * ($by - $cy) + $bx * ($cy - $ay) + $cx * ($ay - $by)) / 2);
-		return ($area);
+		$area = abs( ( $ax * ( $by - $cy ) + $bx * ( $cy - $ay ) + $cx * ( $ay - $by ) ) / 2 );
+		return ( $area);
 	}
 
-	public function get_point_color(Vertex $p) {
+	public function get_point_color( Vertex $p ) {
 		$abp = new Triangle( $this->_A, $this->_B, $p );
 		$acp = new Triangle( $this->_A, $this->_C, $p );
 		$bcp = new Triangle( $this->_B, $this->_C, $p );

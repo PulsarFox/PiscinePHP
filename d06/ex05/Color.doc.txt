@@ -22,4 +22,14 @@ Substracts each color constitutive and returns a new Color instance.
 Color   mult( $f );
 Multiplies each color constitutive by factor $f and returns a new Color
 instance.
+
+int		toPngColor( $image ):
+Calculate the color code corresponding for $image and returns a int.
+
+Color bifusion( Color $destination, $advancement ):
+Creates a new Color between $this and $destination based on the advancement
+and return it.
+
+Color trifusion( Color $A, $progAm Color $B, $progB, Color $C, $progC ):
+same as for 3 points.
 ---------------------------------------------------------------------- Color ->
