@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+		.outer {
+		    display: table;
+		    position: absolute;
+		    height: 100%;
+		    width: 100%;
+		}
+		.middle {
+		    display: table-cell;
+		    vertical-align: middle;
+		}
+		.center {
+			margin-left: 30%;
+			margin-right: 30%;
+			vertical-align: center;
+		}
+		</style>
+		<title>calc</title>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="middle">
+				<form class="center" method="POST">
+					<fieldset>
+						<input name="nbleft" type="text" value="">
+						<select name="operator">
+							<option value="+">+</option>
+							<option value="-">-</option>
+							<option value="*">*</option>
+							<option value="//">/</option>
+							<option value="%">%</option>
+						</select>
+						<input name="nbright" type="text" value="">
+						<input align="right" type="submit" value="Try me!" id="dothemath">		
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script language="javascript">
+	var submit = document.getElementById( "dothemath" );
+	var input_left = document.getElementsByName( "nbleft" );
+	var input_right = document.getElementsByName( "nbright" );
+	var operator_el = document.getElementsByName( "operator" );
+	submit.onclick = processForm;
+
+	function processForm() {
+		var nbleft = input_left[0].value;
+		var nbright = input_right[0].value;		
+		var operator = operator_el[0].value;
+		if ( isValid( nbleft, nbright, operator ) == false ) {
+			return;
+		}
+		var result = eval( nbleft +  operator + nbright ) ;
+		console.log( result );
+		alert( result );
+	}
+
+	function isValid( nbleft, nbright, operator ) {
+		if ( nbleft && !isNaN( nbleft ) && nbright && !isNaN( nbright ) && nbright == 0 && ( operator == "//" || operator == "%" ) ) {
+			logAlert( "It’s over 9000!" );
+			return false;
+		}
+		if ( !nbright || !nbleft || isNaN( nbleft ) || isNaN( nbright ) || nbright < 0 || nbleft < 0 ) {
+			logAlert( "Error :(" );
+			return false;
+		}
+		return true;
+	}
+
+	function logAlert( str ) {
+		console.log( str );
+		alert( str );
+	}
+	setInterval( function() { alert( "Please, use me..." ), 30000 } );
+</script>
