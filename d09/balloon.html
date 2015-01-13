@@ -1,0 +1,83 @@
+<html>
+  <head>
+	<meta charset="utf-8">
+	<style>
+		.outer {
+		    display: table;
+		    position: absolute;
+		    height: 100%;
+		    width: 100%;
+		}
+		.middle {
+		    display: table-cell;
+		    vertical-align: middle;
+		}
+		.center {
+			margin-left: auto;
+			margin-right: auto;
+			vertical-align: center;
+		}
+		.circle {
+			height: 200px;
+			width: 200px;
+			border-radius: 50%;
+		}
+		.bg-red {
+			background-color: red;
+		}
+	</style>
+	<title>balloon</title>
+  </head>
+  <body>
+	<div class="outer">
+		<div class="middle">
+			<div class="center circle bg-red" id="balloon">	  
+			</div>
+		</div>
+	</div>
+  </body>
+</html>
+
+<script type="text/javascript">
+	
+document.getElementById( "balloon" ).onclick = increase;
+document.getElementById( "balloon" ).addEventListener( "mouseout", mouseout );
+
+function increase() {
+	var balloon = document.getElementById( "balloon" );
+	var width = parseInt( balloon.offsetWidth );
+	if ( width < 420 ) {
+		balloon.style.width = width + 10 + "px";
+		balloon.style.height = width + 10 + "px";
+	}
+	else {
+		balloon.style.width = "200px";
+		balloon.style.height = "200px";
+	}
+	changeColor( "UP" );
+}
+
+function mouseout() {
+	var balloon = document.getElementById( "balloon" );
+	var width = parseInt( balloon.offsetWidth );
+	if ( width > 200 ) {
+		balloon.style.width = width - 5 + "px";
+		balloon.style.height = width - 5 + "px";
+	}
+	else
+		return;
+	changeColor( "DOWN" );
+}
+
+function changeColor( $dir ) {	
+	var Color = balloon.style.backgroundColor;
+	if ( !Color ) { Color = "red" };
+	if ( Color == "red")
+		Color = ( $dir === "UP" ? "green" : "blue" );
+	else if ( Color == "green" )
+		Color = ( $dir === "UP" ? "blue" : "red" );
+	else
+		Color = ( $dir === "UP" ? "red" : "green" );
+	balloon.style.backgroundColor = Color;
+	}
+</script>
