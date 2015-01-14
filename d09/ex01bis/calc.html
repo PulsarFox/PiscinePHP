@@ -18,6 +18,7 @@
 			vertical-align: center;
 		}
 		</style>
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<title>calc</title>
 	</head>
 	<body>
@@ -42,31 +43,52 @@
 	</body>
 </html>
 
-<script language="javascript">
-	var submit = document.getElementById( "dothemath" );
-	var input_left = document.getElementsByName( "nbleft" );
-	var input_right = document.getElementsByName( "nbright" );
-	var operator_el = document.getElementsByName( "operator" );
-	submit.onclick = processForm;
+<script script="text/javascript">
+	var submit = $( "#dothemath" );
+	var input_left = $( "[name='nbleft']" );
+	var input_right = $( "[name='nbright']" );
+	var operator_el = $( "[name='operator']" );
+	submit.on( "click", processForm );
 
-	function processForm() {
-		var nbleft = input_left[0].value;
-		var nbright = input_right[0].value;		
-		var operator = operator_el[0].value;
+	$(document.body).delay(30000).show( 1, repeat );
+
+	function processForm() {	
+		var nbleft = input_left.val();
+		var nbright = input_right.val();		
+		var operator = operator_el.val();
 		if ( isValid( nbleft, nbright, operator ) == false ) {
 			return;
 		}
-		var result = eval( nbleft +  operator + nbright ) ;
+		var result = dothemath( nbleft,  operator, nbright ) ;
 		console.log( result );
 		alert( result );
 	}
 
+	function dothemath( a, operator, b) {
+		var ret;
+		a = parseInt( a );
+		b = parseInt( b );
+		switch( operator ) {
+			case "+": ret =  a + b ;
+			break;
+			case "-": ret = a - b;
+			break;
+			case "//": ret = a / b;
+			break;
+			case "*": ret = a * b;
+			break;
+			case "%": ret = a % b;
+			break;
+		}
+		return( ret );
+	}
+
 	function isValid( nbleft, nbright, operator ) {
-		if ( nbleft && !isNaN( nbleft ) && nbright && !isNaN( nbright ) && nbright == 0 && ( operator == "//" || operator == "%" ) ) {
+		if ( nbleft && $.isNumeric( nbleft ) && nbright && $.isNumeric( nbright ) && nbright == 0 && ( operator == "//" || operator == "%" ) ) {
 			logAlert( "It’s over 9000!" );
 			return false;
 		}
-		if ( !nbright || !nbleft || isNaN( nbleft ) || isNaN( nbright ) || !isInt( nbleft ) || !isInt( nbright ) ||nbright < 0 || nbleft < 0 ) {
+		if ( !nbright || !nbleft || !$.isNumeric( nbleft ) || !$.isNumeric( nbright ) || !isInt( nbright ) || !isInt( nbleft ) || nbright < 0 || nbleft < 0 ) {
 			logAlert( "Error :(" );
 			return false;
 		}
@@ -79,8 +101,12 @@
 	}
 
 	function isInt( n ) {
-		return n % 1 === 0;
+		   return n % 1 === 0;
 	}
 
-	setInterval( function() { alert( "Please, use me..." ) }, 30000 );
+	function repeat() {
+	   alert( "Please, use me..." )
+	   $(document.body).delay(30000).show( 1, repeat );
+   	}
+
 </script>

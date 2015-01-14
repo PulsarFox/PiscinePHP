@@ -5,10 +5,9 @@ document.body.onload = recoverTodoList;
 
 function addTodo() {
 	var infos = prompt( "Please, enter new todo informations." );
-	if ( !infos || infos == "" )
-		return;
 	prependDiv( infos );
 	addCookie( "todolist", infos );
+	if ( !infos ) return;
 }
 
 function prependDiv( infos ) {

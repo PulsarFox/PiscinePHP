@@ -1,0 +1,83 @@
+<html>
+  <head>
+	<meta charset="utf-8">
+	<style>
+		.outer {
+		    display: table;
+		    position: absolute;
+		    height: 100%;
+		    width: 100%;
+		}
+		.middle {
+		    display: table-cell;
+		    vertical-align: middle;
+		}
+		.center {
+			margin-left: auto;
+			margin-right: auto;
+			vertical-align: center;
+		}
+		.circle {
+			height: 200px;
+			width: 200px;
+			border-radius: 50%;
+		}
+		.bg-red {
+			background-color: red;
+		}
+	</style>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<title>balloon</title>
+  </head>
+  <body>
+	<div class="outer">
+		<div class="middle">
+			<div class="center circle bg-red" id="balloon">	  
+			</div>
+		</div>
+	</div>
+  </body>
+</html>
+
+<script type="text/javascript">
+	
+$("#balloon" ).on("click", increase );
+$("#balloon" ).on( "mouseout", mouseout );
+
+function increase() {
+	balloon = $( this );
+	var width = $( this ).width();
+	if ( width < 420 ) {
+		balloon.width( width + 10 );
+		balloon.height( width + 10 );
+	}
+	else {
+		balloon.width( "200px" );
+		balloon.height( "200px" );
+	}
+	changeColor( "UP", balloon );
+}
+
+function mouseout() {
+	var balloon = $( "#balloon" );
+	var width = balloon.width();
+	if ( width > 200 ) {
+		balloon.width ( width - 5 );
+		balloon.height( width - 5 );
+	}
+	else
+		return;
+	changeColor( "DOWN", balloon );
+}
+
+function changeColor( dir, el ) {	
+	var Color = el.css( "background-color" );
+	if ( Color === "rgb(255, 0, 0)" )
+		Color = ( dir === "UP" ? "green" : "blue" );
+	else if ( Color ==  "rgb(0, 128, 0)" )
+		Color = ( dir === "UP" ? "blue" : "red" );
+	else if ( Color == "rgb(0, 0, 255)" )
+		Color = ( dir === "UP" ? "red" : "green" );
+	el.css( "background-color", Color )
+	}
+</script>
