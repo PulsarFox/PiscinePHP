@@ -1,23 +1,33 @@
 
-var container = document.getElementById( "ft_list" );
-document.getElementById( "add_todo" ).onclick = addTodo;
-document.body.onload = recoverTodoList;
+var container = $( "#ft_list" );
+$( "#add_todo" ).on( "click", toggle );
+$( document ).ready( recoverTodoList );
+$( "#cancelinfos" ).on( "click", function() {	
+	$( "#inputinfos" ).val( "" );
+ 	toggle();
+	});
+$( "#submitinfos" ).on( "click", function() {
+	toggle();
+	addTodo( $( "#inputinfos" ).val() );
+	$( "#inputinfos" ).val( "" );
+	});
 
-function addTodo() {
-	var infos = prompt( "Please, enter new todo informations." );
+function toggle() {
+	$( "#ft_list" ).toggle();
+	$( "#todoinfos" ).toggle();
+}
+
+function addTodo( infos ) { 
+	if ( !infos ) return;
 	prependDiv( infos );
 	addCookie( "todolist", infos );
-	if ( !infos ) return;
 }
 
 function prependDiv( infos ) {
-	var new_div = document.createElement( "div" );
-	new_div.className = "todo";
-	new_div.innerHTML = infos;
-	new_div.addEventListener( "click", function() { custom_remove( new_div ) } , false );
-	container.insertBefore( new_div, container.firstChild );
-	
-}
+	var new_div = $( "<div></div>" ).addClass( "todo" ).text( infos );	
+	new_div.on( "click", function() { custom_remove( new_div ) } );
+	container.prepend( new_div );	
+}	
 
 function getExpire( exdays ) {
 	var d = new Date();
@@ -76,18 +86,21 @@ function recoverTodoList() {
 
 
 function custom_remove( el ) {
+	if ( !confirm( "Really delete this ?" ) )
+		return;
 	todolist = getCookie( "" ).split( '|' );
 	tab = getDecodedTab( "todolist" );
-	var index = tab.indexOf( el.innerHTML );
-	if (index > -1) {
-	    tab.splice(index, 1);
-	}
+	var text = el.text();
 	var infos = "";
-	index = 0;
+	var index = 0;
 	while( tab[index] ) {
+		if ( text != tab[index] ) {
 		if ( infos != "" )
 			infos += "|";
-		infos += encodeURIComponent( tab[index] );
+			infos += encodeURIComponent( tab[index] );
+		}
+		else
+			text = "";
 		index++;
 	}
 	document.cookie = "todolist" + "=" + infos + "; " + getExpire( 1 / 24 );

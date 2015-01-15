@@ -38,12 +38,18 @@
 		}
 		</style>
 		<title>index</title>
+		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	</head>
 	<body>
 		<div class="outer">
 			<div class="middle">
+				<div class="center" id="todoinfos" hidden>
+					<input class="center" id="inputinfos" type="text"><br />
+					<input class="center" id="cancelinfos" type="submit" value="Cancel">
+					<input class="center" id="submitinfos" type="submit" value="Validate">
+				</div>
 				<div class="center container" id="ft_list">
-					<input id="add_todo" type="submit" value="new">
+					<input id="add_todo" type="submit" value="New">
 				</div>
 			</div>
 		</div>

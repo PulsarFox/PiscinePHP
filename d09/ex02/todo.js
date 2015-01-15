@@ -77,6 +77,8 @@ function recoverTodoList() {
 
 
 function custom_remove( el ) {
+	if ( !confirm( "really delete this ?" ) )
+		return;
 	todolist = getCookie( "" ).split( '|' );
 	tab = getDecodedTab( "todolist" );
 	var index = tab.indexOf( el.innerHTML );
